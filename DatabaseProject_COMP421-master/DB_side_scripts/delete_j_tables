@@ -1,0 +1,19 @@
+-- Delete in reverse order so that key-constraints aren't violated
+\! echo "Deleting from j_transfers:"
+DELETE FROM j_transfers;
+\! echo "Deleting from j_deposits:"
+DELETE FROM j_deposits;
+\! echo "Deleting from j_withdrawals:"
+DELETE FROM j_withdrawals;
+\! echo "Deleting from j_transactions:"
+DELETE FROM j_transactions;
+\! echo "Deleting from j_accounts:"
+DELETE FROM j_accounts;
+\! echo "Deleting from j_customers:"
+DELETE FROM j_customers;
+\! echo "Deleting from j_bankers:"
+DELETE FROM j_bankers;
+\! echo "Deleting from j_branches:"
+DELETE FROM j_branches;
+\! echo "Deleting from j_banks:"
+DELETE FROM j_banks;

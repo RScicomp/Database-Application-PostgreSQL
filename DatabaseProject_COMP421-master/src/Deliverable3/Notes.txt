@@ -1,0 +1,29 @@
+CROSS THINGS OUT IF THEY”RE DONE / RESOLVED
+COMMENT / ADD
+— this so we can see where we are in regards to finishing the project
+
+NOTES:
+1. we are passing in a Prepared statement to most functions -- functions need to be updated
+2. validation for updating personal settings needs to be done
+3. customer UI is done
+4. change statements to prepared statements?
+5. PreparedStatment p_stm in main needs to be initialized --> p_stm = con.prepareStatement("") or would it be better not pass a prepared statement? 
+6. Do we close the prepared statement in each function?
+7. @Richard Gao -- you do executeStatement and set it equal to an int... should you check the value of the int afterwards?
+ 
+8. USE branchstats !!
+
+WHAT NEEDS TO GET DONE:
+2. Q2 validation and update  
+3. Q2 verifying everything works 
+4. Q2 script
+5. Q3 indices and reasoning why they are relevant for our application
+6. Q4 tables
+	- Richard (R)
+	- Leila (Tableau)
+
+	—- SQL , Picture of image, Excel / Google spreadsheet of work
+	— tableau: talked to the prof and he said just write a description
+
+8. NEED 
+	- script for Q2 — executes all of the options we provide

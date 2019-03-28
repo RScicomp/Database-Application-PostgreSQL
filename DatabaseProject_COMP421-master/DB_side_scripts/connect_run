@@ -1,0 +1,3 @@
+#/bin/bash
+# Will run the file provided as cmdline arg1 to cs421 DB and then terminate
+psql -f $1 cs421

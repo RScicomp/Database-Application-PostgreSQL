@@ -1,0 +1,125 @@
+DROP TABLE j_Banks CASCADE;
+DROP TABLE j_Branches CASCADE;
+DROP TABLE j_Bankers CASCADE;
+DROP TABLE j_Customers CASCADE;
+DROP TABLE j_Savings CASCADE;
+DROP TABLE j_Transactions CASCADE;
+DROP TABLE j_Withdrawals CASCADE;
+DROP TABLE j_Deposits CASCADE;
+DROP TABLE j_Accounts CASCADE;
+DROP TABLE j_Transfers CASCADE;
+
+--Institutions
+-- missing attributes: reserveAmt , countryHQ
+
+CREATE TABLE j_Banks(
+nameB VARCHAR(20) NOT NULL,
+
+PRIMARY KEY(nameB)
+);
+
+CREATE TABLE j_Branches(
+brID INTEGER NOT NULL,
+nameB VARCHAR(20) NOT NULL,
+city VARCHAR(20) NOT NULL,
+
+PRIMARY KEY(brID, nameB),
+FOREIGN KEY(nameB) REFERENCES j_Banks
+);
+
+--People
+
+CREATE TABLE j_Bankers(
+pidB INTEGER NOT NULL,		
+brID INTEGER NOT NULL,
+nameB VARCHAR(20) NOT NULL,
+addr VARCHAR(30),
+name VARCHAR(20),
+phoneNum INTEGER,
+
+PRIMARY KEY (pidB),
+FOREIGN KEY(brID, nameB) REFERENCES j_Branches(brID, nameB)
+);
+
+CREATE TABLE j_Customers(
+pidC INTEGER NOT NULL,
+pidB INTEGER NOT NULL,
+addr VARCHAR(30),
+name VARCHAR(20),
+phoneNum INTEGER,
+
+PRIMARY KEY(pidC),
+FOREIGN KEY(pidB) REFERENCES j_Bankers(pidB)
+);
+
+--Accounts
+CREATE TABLE j_Accounts(
+aID INTEGER NOT NULL,
+currency VARCHAR(3) NOT NULL,
+openDate DATE NOT NULL,
+balance INTEGER NOT NULL,	-- Assume balance <= 10,000,000
+nameB VARCHAR(20) NOT NULL,
+pidC INTEGER NOT NULL,
+pidB INTEGER NOT NULL,
+checking BOOLEAN NOT NULL,		-- true : checking & false : saving 
+interestRate INTEGER,		-- Similar to balance, INT is more lightweight
+
+PRIMARY KEY(aID),
+FOREIGN KEY(pidB) REFERENCES j_Bankers(pidB),
+FOREIGN KEY(pidC) REFERENCES j_Customers(pidC),
+FOREIGN KEY(nameB) REFERENCES j_Banks(nameB)
+);
+
+
+--Transactions
+
+CREATE TABLE j_Transactions(
+tID INTEGER NOT NULL,
+dateOf DATE NOT NULL,
+timeOf TIME NOT NULL, 
+amt INTEGER NOT NULL,
+statusOf INT NOT NULL,	
+
+PRIMARY KEY(tID)
+);
+
+
+--Withdrawals
+CREATE TABLE j_Withdrawals(
+tidW INTEGER NOT NULL,
+aidC INTEGER NOT NULL,
+
+PRIMARY KEY(tidW),
+FOREIGN KEY(tidW) REFERENCES j_Transactions(tID),
+FOREIGN KEY(aidC) REFERENCES j_Accounts(aID)
+);
+
+-- Deposits
+CREATE TABLE j_Deposits(
+tidD INTEGER NOT NULL,
+aID INTEGER NOT NULL,
+
+PRIMARY KEY(tidD),
+FOREIGN KEY(tidD) REFERENCES j_Transactions(tID),
+FOREIGN KEY(aID) REFERENCES j_Accounts(aID)
+);
+
+
+--Transfers
+CREATE TABLE j_Transfers(
+tidT INTEGER NOT NULL,
+aidSrc INTEGER NOT NULL,
+aidDest INTEGER NOT NULL,
+fee INTEGER NOT NULL,
+
+PRIMARY KEY(tidT),
+FOREIGN KEY(tidT) REFERENCES j_Transactions(tID),
+FOREIGN KEY(aidSrc) REFERENCES j_Accounts(aID),
+FOREIGN KEY (aidDest) REFERENCES j_Accounts(aID)
+);
+
+
+
+
+
+
