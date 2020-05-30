@@ -8,7 +8,7 @@ require(shinyWidgets)
 
 
 
-con<-dbConnect(drv = PostgreSQL(), user = "cs421g21", dbname = "cs421", host = "comp421.cs.mcgill.ca",  password = "N2a0r1ut6o",port = "5432/cs421")
+con<-dbConnect(drv = PostgreSQL(), user = "cs421g21", dbname = "cs421", host = "comp421.cs.mcgill.ca",  password = "",port = "5432/cs421")
 withdrawals <- dbGetQuery(con, "SELECT tid,dateof,timeof,amt,aidc,statusof FROM t_transactions INNER JOIN t_withdrawals ON tidw = tid;")
 withdrawals["Type"] = "withdrawal"
 transform(withdrawals, dateof= as.Date(dateof, "%Y%M%D"))
