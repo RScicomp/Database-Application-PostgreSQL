@@ -1,4 +1,4 @@
-# Database-Application_Java_RShiny_PostgreSQL
+# Database-Application
 
 Role in Group Project:
 
